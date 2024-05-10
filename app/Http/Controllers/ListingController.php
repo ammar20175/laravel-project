@@ -12,7 +12,7 @@ class ListingController extends Controller
     {
         return view('listings.index', [
             'heading' => 'Latest Listings',
-            'listings' => Listing::latest()->filter(request(['tag', 'search']))->get()
+            'listings' => Listing::latest()->filter(request(['tag', 'search']))->paginate(2)
         ]);
     }
 
@@ -42,6 +42,6 @@ class ListingController extends Controller
 
         Listing::create($formFields);
 
-        return redirect('/');
+        return redirect('/')->with('message', 'job listing created successfully.');
     }
 }
